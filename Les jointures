@@ -1,3 +1,4 @@
+Retourne les noms, prénoms, rôle et équipe de tous les joueurs, classés dans l’ordre alphabétique par équipe, puis par rôle dans l’équipe, puis par nom de famille, puis par prénom.
 
 select firstname, lastname, role, name as team
 from player
@@ -24,6 +25,9 @@ join wizard on wizard.id=player.wizard_id
 join team on team.id=player.team_id
 order by firstname ASC;
 
+
+Retourne uniquement les prénom et nom des joueurs ayant le rôle de seeker (attrapeur), classés par ordre alphabétique de nom puis prénom
+
 SELECT firstname, lastname, role
 from player
 join wizard on wizard.id=player.wizard_id
@@ -37,6 +41,13 @@ join wizard on wizard.id=player.wizard_id
 join team on team.id=player.team_id
 WHERE role = 'seeker'
 ORDER BY firstname ASC;
+
+Retourne la liste de tous les sorciers qui ne pratiquent pas le quidditch.
+
+select w.firstname, w.lastname, p.role
+from player as p
+right join wizard as w on w.id = p.wizard_id
+where p.role is Null
 
 
 

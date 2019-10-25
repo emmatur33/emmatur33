@@ -38,3 +38,5 @@ join team on team.id=player.team_id
 WHERE role = 'seeker'
 ORDER BY firstname ASC;
 
+
+

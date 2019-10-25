@@ -1,0 +1,40 @@
+
+select firstname, lastname, role, name as team
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+order by team ASC;
+
+
+select firstname, lastname, role, name as team
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+order by role ASC;
+
+select firstname, lastname, role, name as team
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+order by lastname ASC;
+
+select firstname, lastname, role, name as team
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+order by firstname ASC;
+
+SELECT firstname, lastname, role
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+WHERE role = 'seeker'
+ORDER BY lastname ASC;
+
+SELECT firstname, lastname, role
+from player
+join wizard on wizard.id=player.wizard_id
+join team on team.id=player.team_id
+WHERE role = 'seeker'
+ORDER BY firstname ASC;
+

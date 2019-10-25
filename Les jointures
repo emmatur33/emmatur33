@@ -1,28 +1,8 @@
-
 select firstname, lastname, role, name as team
 from player
 join wizard on wizard.id=player.wizard_id
 join team on team.id=player.team_id
-order by team ASC;
-
-
-select firstname, lastname, role, name as team
-from player
-join wizard on wizard.id=player.wizard_id
-join team on team.id=player.team_id
-order by role ASC;
-
-select firstname, lastname, role, name as team
-from player
-join wizard on wizard.id=player.wizard_id
-join team on team.id=player.team_id
-order by lastname ASC;
-
-select firstname, lastname, role, name as team
-from player
-join wizard on wizard.id=player.wizard_id
-join team on team.id=player.team_id
-order by firstname ASC;
+order by team ASC, role ASC, lastname ASC, firstname ASC;
 
 SELECT firstname, lastname, role
 from player

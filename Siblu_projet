@@ -1,0 +1,41 @@
+20/11/19
+
+#1 - Creation de la table DATE: Table référente pour etablir le calendrier (de 1970 à 2099).
+  Dates = CALENDARAUTO(12)
+  
+  #creation de la colonne month number
+  MonthNum = MONTH(Dates[Date])
+  
+  #creation de la colonne month
+  Month = Format(Dates[Date]; "MMM")
+  
+  #creation de la colonne Week Number
+  Month = Format(Dates[Date]; "MMM")
+  
+  #Creation de la colonne YearNum
+  YearNum = YEAR(Dates[Date])
+  
+#2 - Creation de deux colonnes dans la table dans la table siblu_db1 reservation:
+  
+  #la colonne DateIntervalWeek calcule le nombre de de semaines entre la date d'arrivée et la date de départ pour une réservation
+  DateIntervalWeek = DATEDIFF([arrival_date] ; [departure_date] ; WEEK)
+  
+  #la colonne DateIntervalDays calcule le nombre de jours entre la date d'arrivée et la date de départ pour une réservation
+  DateIntervalDay = DATEDIFF([arrival_date] ; [departure_date] ; DAY)
+
+
+#3 - creation de la table ReservationNumweekDate: 
+  #Table compilant des colonnes de plusieurs tables pour etablir les reservation par week number 
+  ReservationNumweekDate = SELECTCOLUMNS('siblu_db1 reservation'; "IdResa"; [id]; "ArrivalDate" ; [arrival_date] ; "TotalWeek";[DateIntervalWeek];"TotalDay";[DateIntervalDay]; "NumWeek"; RELATED(Dates[WeekNum]); "NumYear"; RELATED(Dates[YearNum]))
+  
+
+#4 - Créer un code afin de pouvoir visualiser lrs reservation par week number.  
+#si une reservation a moins d'une semaine, une unité est comptée pour le numero de semaine correspondant
+#si une reservation a plus d'une semaine, une unité est comptée pour chaque semaine comptabilisée
+#Code a revoir
+Viz_WeekUnit = CALCULATE(
+            VAR n = CEILING( VALUES('ReservationNumweekDate'[TotalDay]) / 7; 1)
+            VAR __loopTable = GENERATESERIES(1; n)
+            VAR __loopTable1 = ADDCOLUMNS(__loopTable; "IdReservation"; VALUES('ReservationNumweekDate'[IdReservation]); "NumWeek"; VALUES('ReservationNumweekDate'[NumWeek]) + [value])
+            RETURN
+        ALL(ReservationNumweekDate))
